@@ -1,18 +1,23 @@
+"use client"; // Nécessaire pour utiliser useRouter
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+// Supprimé : import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation'; // Import correct pour App Router
 import VideoPlayer from '@/components/video/VideoPlayer';
 import PageLayout from '@/components/layout/PageLayout';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const IntroductionVideo = () => {
-  const navigate = useNavigate();
-  
+  const router = useRouter(); // Utilisation du hook de Next.js
+
   const handleSkip = () => {
-    navigate('/etape/1');
+    // Utiliser router.push pour la navigation programmatique
+    router.push('/cv');
+
   };
-  
+
   return (
     <PageLayout>
       <div className="container mx-auto px-4 py-10 max-w-4xl">
@@ -22,20 +27,23 @@ const IntroductionVideo = () => {
             Pour bien commencer, regardez cette courte vidéo qui explique le fonctionnement de la plateforme.
           </p>
         </div>
-        
+
         <div className="mb-10">
+          {/* La fonction handleSkip corrigée sera passée ici */}
           <VideoPlayer onSkip={handleSkip} />
         </div>
-        
+
         <div className="flex justify-center">
-          <Button 
-            size="lg" 
-            className="px-6 py-6 text-xl rounded-lg h-auto" 
-            onClick={handleSkip}
-          >
-            <span>Commencer mon parcours</span>
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
+          {/* Cette partie était déjà correcte */}
+          <Link href="/cv">
+            <Button
+              size="lg"
+              className="px-6 py-6 text-xl rounded-lg h-auto"
+            >
+              <span>Commencer mon parcours</span>
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </div>
     </PageLayout>
